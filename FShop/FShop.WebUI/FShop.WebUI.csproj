@@ -192,6 +192,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductManagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -258,6 +259,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\ProductManager\Index.cshtml" />
+    <Content Include="Views\ProductManager\Create.cshtml" />
+    <Content Include="Views\ProductManager\Edit.cshtml" />
+    <Content Include="Views\ProductManager\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -274,6 +279,24 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FShop.Core\FShop.Core.csproj">
+      <Project>{e81527ab-dd94-4501-856b-a15a635bdb85}</Project>
+      <Name>FShop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FShop.DataAccess.InMemory\FShop.DataAccess.InMemory.csproj">
+      <Project>{54bdbe3c-faec-48c6-8939-b80049c860da}</Project>
+      <Name>FShop.DataAccess.InMemory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FShop.DataAccess.SQL\FShop.DataAccess.SQL.csproj">
+      <Project>{e751ba77-ac23-4cba-8704-2871961df68c}</Project>
+      <Name>FShop.DataAccess.SQL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FShop.Services\FShop.Services.csproj">
+      <Project>{350c8745-9ca4-4dc7-8f02-22c538aeb73f}</Project>
+      <Name>FShop.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
