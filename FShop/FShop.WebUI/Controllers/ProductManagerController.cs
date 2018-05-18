@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FShop.Core.Models;
+using FShop.Core.ViewModels;
 using FShop.DataAccess.InMemory;
 
 
@@ -13,9 +14,16 @@ namespace FShop.WebUI.Controllers
     {
         private ProductRepository context;
 
+        private ProductCategoryRepository productCategories;
+
+
+
         public ProductManagerController()
         {
             context = new ProductRepository();
+            productCategories = new ProductCategoryRepository();
+
+
         }
         // GET: ProductManager
         public ActionResult Index()
@@ -26,8 +34,11 @@ namespace FShop.WebUI.Controllers
 
         public ActionResult Create()
         {
-            Product product = new Product();
-            return View(product);
+            ProductManagerViewModel viewModel = new ProductManagerViewModel();
+            viewModel.Product=new Product();
+            viewModel.ProductCategories = productCategories.Collection();
+            
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -56,7 +67,10 @@ namespace FShop.WebUI.Controllers
             }
             else
             {
-                return View(product);
+                ProductManagerViewModel viewModel = new ProductManagerViewModel();
+                viewModel.Product = product;
+                viewModel.ProductCategories = productCategories.Collection();
+                return View(viewModel);
             }
 
         }
