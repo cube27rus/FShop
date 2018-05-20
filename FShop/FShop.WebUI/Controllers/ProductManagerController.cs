@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FShop.Core.Contracts;
 using FShop.Core.Models;
 using FShop.Core.ViewModels;
 using FShop.DataAccess.InMemory;
@@ -12,16 +13,13 @@ namespace FShop.WebUI.Controllers
 {
     public class ProductManagerController : Controller
     {
-        InMemoryRepository<Product> context;
+        IRepository<Product> context;
+        IRepository<ProductCategory> productCategories;
 
-        InMemoryRepository<ProductCategory> productCategories;
-
-
-
-        public ProductManagerController()
+        public ProductManagerController(IRepository<Product> productContext, IRepository<ProductCategory> productCategoryContext)
         {
-            context = new InMemoryRepository<Product>();
-            productCategories = new InMemoryRepository<ProductCategory>();
+            context = productContext;
+            productCategories = productCategoryContext;
 
 
         }
