@@ -2,6 +2,7 @@ using System;
 using FShop.Core.Contracts;
 using FShop.Core.Models;
 using FShop.DataAccess.InMemory;
+using FShop.DataAccess.SQL;
 using Unity;
 
 namespace FShop.WebUI
@@ -44,8 +45,8 @@ namespace FShop.WebUI
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            container.RegisterType<IRepository<Product>, InMemoryRepository<Product>>();
-            container.RegisterType<IRepository<ProductCategory>, InMemoryRepository<ProductCategory>>();
+            container.RegisterType<IRepository<Product>, SQLRepository<Product>>();
+            container.RegisterType<IRepository<ProductCategory>, SQLRepository<ProductCategory>>();
         }
     }
 }
