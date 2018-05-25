@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using FShop.Core.Contracts;
 using FShop.Core.Models;
+using FShop.Core.ViewModels;
 
 namespace FShop.WebUI.Controllers
 {
@@ -19,10 +20,22 @@ namespace FShop.WebUI.Controllers
             productCategories = productCategoryContext;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string category = null)
         {
-            List<Product> products = context.Collection().ToList();
-            return View(products);
+            List<Product> products;
+            List<ProductCategory> categories = productCategories.Collection().ToList();
+            if (category == null)
+            {
+                products = context.Collection().ToList();
+            }
+            else
+            {
+                products = context.Collection().Where(i => i.Category.Equals(category)).ToList();
+            }
+            ProductListViewModel model = new ProductListViewModel();
+            model.ProductCategories = categories;
+            model.Products = products;
+            return View(model);
         }
 
         public ActionResult Details(string Id)
