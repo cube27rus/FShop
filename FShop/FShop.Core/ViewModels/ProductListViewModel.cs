@@ -13,5 +13,6 @@ namespace FShop.Core.ViewModels
 
         public IEnumerable<ProductCategory> ProductCategories { get; set; }
 
+        public PageInfo PageInfo { get; set; }
     }
 }

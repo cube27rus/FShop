@@ -13,6 +13,7 @@ namespace FShop.WebUI.Controllers
     {
         IRepository<Product> context;
         IRepository<ProductCategory> productCategories;
+        private int pageSize = 6;
 
         public HomeController(IRepository<Product> productContext,IRepository<ProductCategory> productCategoryContext)
         {
@@ -20,19 +21,22 @@ namespace FShop.WebUI.Controllers
             productCategories = productCategoryContext;
         }
 
-        public ActionResult Index(string category = null)
+        public ActionResult Index(string category = null, int page = 1)
         {
+            int allProductsCount = context.Collection().Count();
             List<Product> products;
             List<ProductCategory> categories = productCategories.Collection().ToList();
             if (category == null)
             {
-                products = context.Collection().ToList();
+                products = context.Collection().OrderBy(i=>i.Name).Skip((page - 1) * pageSize).Take(pageSize).ToList();
             }
             else
             {
-                products = context.Collection().Where(i => i.Category.Equals(category)).ToList();
+                products = context.Collection().Where(i => i.Category.Equals(category)).OrderBy(i => i.Name).Skip((page - 1) * pageSize).Take(pageSize).ToList();
             }
             ProductListViewModel model = new ProductListViewModel();
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = allProductsCount };
+            model.PageInfo = pageInfo;
             model.ProductCategories = categories;
             model.Products = products;
             return View(model);

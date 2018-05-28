@@ -1,4 +1,5 @@
-﻿@model FShop.Core.ViewModels.ProductListViewModel
+﻿@using FShop.WebUI.Helpers
+@model FShop.Core.ViewModels.ProductListViewModel
 @{
     ViewBag.Title = "Index";
 }
@@ -17,9 +18,9 @@
 <div class="col-md-10">
     @foreach (var item in Model.Products)
     {
-        <div class="col-md-4" style="height: 450px; padding: 10px; margin: 10px; border: solid thin whitesmoke">
+        <div class="col-md-3" style="height: 450px; padding: 10px; margin: 10px; border: solid thin whitesmoke">
             <div class="col-md-12">
-                <img class="img" style="height: 250px" src="~/Content/ProductImages/@item.Image" />
+                <img class="img" style="height: 250px; width: 250px; object-fit: contain "  src="~/Content/ProductImages/@item.Image" />
             </div>
             <div class="col-md-12">
                 <strong>@Html.ActionLink(item.Name, "Details", new { id = item.Id })</strong>
@@ -36,6 +37,8 @@
         </div>
     }
 </div>
-
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+</div>
 
 
