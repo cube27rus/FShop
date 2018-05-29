@@ -23,17 +23,21 @@ namespace FShop.WebUI.Controllers
 
         public ActionResult Index(string category = null, int page = 1)
         {
-            int allProductsCount = context.Collection().Count();
+            int allProductsCount;
             List<Product> products;
             List<ProductCategory> categories = productCategories.Collection().ToList();
             if (category == null)
             {
-                products = context.Collection().OrderBy(i=>i.Name).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                products = context.Collection().OrderBy(i=>i.Name).ToList();
+                
             }
             else
             {
-                products = context.Collection().Where(i => i.Category.Equals(category)).OrderBy(i => i.Name).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                products = context.Collection().Where(i => i.Category.Equals(category)).OrderBy(i => i.Name).ToList();
             }
+            allProductsCount = products.Count;
+            products = products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
             ProductListViewModel model = new ProductListViewModel();
             PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = allProductsCount };
             model.PageInfo = pageInfo;
